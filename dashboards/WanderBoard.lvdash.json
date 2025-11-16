@@ -1,0 +1,555 @@
+{
+  "datasets": [
+    {
+      "name": "60413e2e",
+      "displayName": "user_clickstream",
+      "queryLines": [
+        "SELECT * FROM wanderflow.wanderlake.user_clickstream"
+      ]
+    },
+    {
+      "name": "fcf7b29f",
+      "displayName": "event_counts",
+      "queryLines": [
+        "select \r\n",
+        "  count(event) as event_counts\r\n",
+        "from wanderflow.wanderlake.user_clickstream\r\n",
+        "group by property_id\r\n",
+        "order by count(event) desc\r\n",
+        ";"
+      ]
+    },
+    {
+      "name": "bb3fdba2",
+      "displayName": "Top 5",
+      "queryLines": [
+        "select \r\n",
+        "  property_id,\r\n",
+        "  count(event) as event_counts\r\n",
+        "from wanderflow.wanderlake.user_clickstream\r\n",
+        "group by property_id\r\n",
+        "order by count(event) desc\r\n",
+        "limit 5\r\n",
+        ";"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "fc927e45",
+      "displayName": "User Patterns",
+      "layout": [
+        {
+          "widget": {
+            "name": "eb2097e0",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "60413e2e",
+                  "fields": [
+                    {
+                      "name": "countdistinct(user_id)",
+                      "expression": "COUNT(DISTINCT `user_id`)"
+                    },
+                    {
+                      "name": "device_type",
+                      "expression": "`device_type`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "countdistinct(user_id)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "displayName": "No. of Users"
+                },
+                "color": {
+                  "fieldName": "device_type",
+                  "legend": {
+                    "title": "Device",
+                    "position": "right"
+                  },
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "tablet",
+                        "color": {
+                          "themeColorType": "visualizationColors",
+                          "position": 2
+                        }
+                      },
+                      {
+                        "value": "mobile",
+                        "color": {
+                          "themeColorType": "selectionColor"
+                        }
+                      },
+                      {
+                        "value": "desktop",
+                        "color": {
+                          "themeColorType": "visualizationColors",
+                          "position": 3
+                        }
+                      }
+                    ],
+                    "sort": {
+                      "by": "angle"
+                    }
+                  }
+                },
+                "label": {
+                  "show": false
+                }
+              },
+              "frame": {
+                "title": "User Click Events by Device Type",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 2,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "040c1768",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "60413e2e",
+                  "fields": [
+                    {
+                      "name": "count(event)",
+                      "expression": "COUNT(`event`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "count(event)"
+                }
+              },
+              "frame": {
+                "title": "Total Event Count",
+                "showTitle": true,
+                "headerAlignment": "center"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "164f7f88",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "60413e2e",
+                  "fields": [
+                    {
+                      "name": "count(user_id)",
+                      "expression": "COUNT(`user_id`)"
+                    },
+                    {
+                      "name": "referrer",
+                      "expression": "`referrer`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "count(user_id)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "displayName": "No. of Users"
+                },
+                "color": {
+                  "fieldName": "referrer",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Referrer",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": false
+                }
+              },
+              "frame": {
+                "title": "Referrer Distribution",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 7,
+            "width": 2,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "03a8599b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "60413e2e",
+                  "fields": [
+                    {
+                      "name": "countdistinct(user_id)",
+                      "expression": "COUNT(DISTINCT `user_id`)"
+                    },
+                    {
+                      "name": "event",
+                      "expression": "`event`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "countdistinct(user_id)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "displayName": "No. of Users"
+                },
+                "color": {
+                  "fieldName": "event",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "title": "User Clicks by Event type",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 7,
+            "width": 2,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "392b846d",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "60413e2e",
+                  "fields": [
+                    {
+                      "name": "countdistinct(user_id)",
+                      "expression": "COUNT(DISTINCT `user_id`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "countdistinct(user_id)"
+                }
+              },
+              "frame": {
+                "title": "Total Unique Users",
+                "showTitle": true,
+                "headerAlignment": "center"
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "495794f3",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "60413e2e",
+                  "fields": [
+                    {
+                      "name": "countdistinct(property_id)",
+                      "expression": "COUNT(DISTINCT `property_id`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "countdistinct(property_id)"
+                }
+              },
+              "frame": {
+                "title": "Total Unique Properties",
+                "showTitle": true,
+                "headerAlignment": "center"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "d139ef1b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "fcf7b29f",
+                  "fields": [
+                    {
+                      "name": "bin(event_counts, binWidth=1)",
+                      "expression": "BIN_FLOOR(`event_counts`, 1)"
+                    },
+                    {
+                      "name": "count(*)",
+                      "expression": "COUNT(`*`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "histogram",
+              "encodings": {
+                "x": {
+                  "fieldName": "bin(event_counts, binWidth=1)",
+                  "displayName": "Events/Property",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "count(*)",
+                  "displayName": "Properties",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Distribution of events per property"
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 2,
+            "width": 4,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "3f6432ac",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "bb3fdba2",
+                  "fields": [
+                    {
+                      "name": "property_id",
+                      "expression": "`property_id`"
+                    },
+                    {
+                      "name": "event_counts",
+                      "expression": "`event_counts`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 1,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "property_id",
+                    "numberFormat": "0",
+                    "booleanValues": [
+                      "false",
+                      "true"
+                    ],
+                    "imageUrlTemplate": "{{ @ }}",
+                    "imageTitleTemplate": "{{ @ }}",
+                    "imageWidth": "",
+                    "imageHeight": "",
+                    "linkUrlTemplate": "{{ @ }}",
+                    "linkTextTemplate": "{{ @ }}",
+                    "linkTitleTemplate": "{{ @ }}",
+                    "linkOpenInNewTab": true,
+                    "type": "integer",
+                    "displayAs": "number",
+                    "visible": true,
+                    "order": 100000,
+                    "title": "Properties",
+                    "allowSearch": false,
+                    "alignContent": "center",
+                    "allowHTML": false,
+                    "highlightLinks": false,
+                    "useMonospaceFont": false,
+                    "preserveWhitespace": false,
+                    "defaultColumnWidth": 155
+                  },
+                  {
+                    "fieldName": "event_counts",
+                    "numberFormat": "0",
+                    "booleanValues": [
+                      "false",
+                      "true"
+                    ],
+                    "imageUrlTemplate": "{{ @ }}",
+                    "imageTitleTemplate": "{{ @ }}",
+                    "imageWidth": "",
+                    "imageHeight": "",
+                    "linkUrlTemplate": "{{ @ }}",
+                    "linkTextTemplate": "{{ @ }}",
+                    "linkTitleTemplate": "{{ @ }}",
+                    "linkOpenInNewTab": true,
+                    "type": "integer",
+                    "displayAs": "number",
+                    "visible": true,
+                    "order": 100001,
+                    "title": "Event counts",
+                    "allowSearch": false,
+                    "alignContent": "center",
+                    "allowHTML": false,
+                    "highlightLinks": false,
+                    "useMonospaceFont": false,
+                    "preserveWhitespace": false,
+                    "cellFormat": {
+                      "default": {
+                        "foregroundColor": null
+                      },
+                      "rules": []
+                    },
+                    "defaultColumnWidth": 155
+                  }
+                ]
+              },
+              "invisibleColumns": [],
+              "allowHTMLByDefault": false,
+              "itemsPerPage": 5,
+              "paginationSize": "default",
+              "condensed": true,
+              "withRowNumber": false,
+              "firstNFrozenColumns": 0,
+              "frame": {
+                "showTitle": true,
+                "title": "Top 5 Properties Users Interacted With"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 2,
+            "height": 5
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "fcf1db73",
+      "displayName": "Global Filters",
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "genieSpace": {
+      "isEnabled": false
+    },
+    "applyModeEnabled": false
+  }
+}
