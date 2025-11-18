@@ -1,4 +1,4 @@
-CREATE OR REFRESH STREAMING TABLE user_clickstream AS
+CREATE OR REFRESH STREAMING TABLE wanderflow.wanderlake.user_clickstream AS
 SELECT
   property_id,
   user_id,

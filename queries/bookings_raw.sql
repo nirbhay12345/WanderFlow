@@ -1,4 +1,4 @@
-CREATE OR REFRESH STREAMING TABLE bookings_raw AS
+CREATE OR REFRESH STREAMING TABLE wanderflow.wanderlake.bookings_raw AS
 SELECT
   booking_id,
   user_id,
