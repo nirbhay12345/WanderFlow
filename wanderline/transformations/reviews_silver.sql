@@ -8,3 +8,4 @@ JOIN booking_info_active bia
    AND br.property_id = bia.property_id
    AND bia.check_in < br.updated_at
 WHERE bia.status in ('confirmed', 'completed')
+;
